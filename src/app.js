@@ -9,4 +9,4 @@ servidor.use(cors());
 servidor.use(express.json( ));
 
 adicionarRotas(servidor);
-servidor.listen(process.env.PORTA,  ( ) => console.log (`---> APi subiu na porta  ${process.env.PORTA}`));
+servidor.listen(process.env.PORTA,  ( ) => console.log (`---> APi subiu oi na porta  ${process.env.PORTA}`));
