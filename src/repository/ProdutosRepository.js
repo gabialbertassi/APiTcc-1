@@ -48,7 +48,35 @@ export async function InserirProduto(produto){
        return registros;
         
     }
+  export async function removerProduto(id){
+     const comando =`
+     DELETE FROM tb_produtos 
+     WHERE id_procedimento = ?
+     
+     
+     `;
+     let resposta= await con.query(comando[id]);
+     let info = resposta[0]
+    
+return info.affectedrows;
+
+  }
 
 
+  export async function AlterarProduto(id,produto){
 
-  
+const comando = `
+update tb_produtos 
+set nm_procedimento = ?,
+nm_profissional =?,
+descricao=?,
+preco= ?,
+observacoes= ?
+where id_procedimento
+
+`;
+let resposta = await con.query(comando,[produto.nm_procedimento, produto.nm_profissional, produto.descricao, produto.preco, produto.observacoes, id])
+let info = resposta [0];
+return info.affectedRows
+
+  }
