@@ -13,3 +13,20 @@ export async function InserirProduto(produto){
     
     
     }
+    export async function ConsultarProdutos (){
+    const comando =  `
+    select id_procedimento   id,
+    nm_procedimento    procedimento,
+    nm_profissional    profissional,
+    descricao          descrição,
+    preco              preço,
+    observacoes       obs
+    from tb_produtos
+    `;
+
+    let resposta = await con.query (comando);
+ let registros = resposta [0];
+ return registros;
+    
+
+    }
