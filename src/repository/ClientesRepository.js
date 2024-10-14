@@ -2,10 +2,10 @@ import con from "./connection.js";
 
 export async function InserirCliente(cliente){
 const comando =  `
-insert into tb_cliente (nome_cliente , data_nascimento , telefone, cpf, medidas, observacoes , E_Mail)
-                        values(?, ?, ?, ?, ?, ?, ? )
+insert into tb_cliente (NOME_cliente , DATA_nascimento , telefone, cpf, medidas, observacoes , E_MAIL, Id_Usuario)
+                        values(?, ?, ?, ?, ?, ?, ?, ? )
                    `      ;
-let resposta = await con.query (comando,[cliente.nome_cliente ,new Date(cliente.data_Nascimento) , cliente.telefone, cliente.cpf, cliente.medidas , cliente.observacoes, cliente.E_Mail ])
+let resposta = await con.query (comando,[cliente.NOME_cliente ,new Date(cliente.DATA_Nascimento) , cliente.telefone, cliente.cpf, cliente.medidas , cliente.observacoes, cliente.E_MAIL,cliente.Id_Usuario ])
 let info = resposta[0];
 
 return info.insertId;
@@ -14,7 +14,7 @@ return info.insertId;
 }
 
 
-export async function ConsultarCliente(){
+export async function ConsultarCliente(idUsuario){
 const comando = `
 select id_Cliente       id,
         nome_cliente    nome,
@@ -25,8 +25,10 @@ select id_Cliente       id,
         observacoes     observacoes,
         e_mail          email
     from tb_cliente
+    where id_usuario = ?
+    
 `;
-let resposta = await con.query (comando);
+let resposta = await con.query (comando,[idUsuario]);
 let registros = resposta[0];
 return registros;
 

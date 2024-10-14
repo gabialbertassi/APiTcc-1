@@ -1,12 +1,12 @@
-import * as db from '../repository/ProdutosRepository.js';
+import * as db from '../repository/pedidos.js';
 import { Router } from "express";
 import { autenticar } from '../utils/jwt.js';
 const endpoints = Router();
 
-endpoints.post('/produtos/', autenticar, async (req, resp) => {
+endpoints.post('/pedidos/', autenticar, async (req, resp) => {
     try {
-        let produto = req.body;
-        let id = await db.InserirProduto(produto);
+        let pedido= req.body;
+        let id = await db.InserirPedidos(pedido,);
 
         resp.send({
             novoId: id
@@ -21,11 +21,11 @@ endpoints.post('/produtos/', autenticar, async (req, resp) => {
 
 
 
-endpoints.get('/produto/', autenticar, async (req, resp) => {
+endpoints.get('/pedido/', autenticar, async (req, resp) => {
     try {
 
         let idUsuario = req.user.id;
-        let registros = await db.ConsultarProdutos(idUsuario);
+        let registros = await db.ConsultarPedidos(idUsuario);
         resp.send(registros);
 
     } catch (err) {
@@ -40,11 +40,11 @@ endpoints.get('/produto/', autenticar, async (req, resp) => {
 
 
 
-endpoints.put('/produtos/:id', autenticar, async (req, resp) => {
+endpoints.put('/pedido/:id', autenticar, async (req, resp) => {
     try {
         let id = req.params.id;
-        let produto = req.body;
-        let linhasAfetadas = await db.AlterarProduto(id, produto);
+        let pedido = req.body;
+        let linhasAfetadas = await db.Alterarpedido(id, pedido);
         if (linhasAfetadas >= 1) {
             resp.send();
         }
@@ -56,12 +56,12 @@ endpoints.put('/produtos/:id', autenticar, async (req, resp) => {
     }
 })
 
-endpoints.delete('/produtos/:id', autenticar, async (req, resp) => {
+endpoints.delete('/pedido/:id', autenticar, async (req, resp) => {
 
     try {
         let id = req.params.id;
 
-        let linhasAfetadas = await db.removerProduto(id)
+        let linhasAfetadas = await db.removerPedido(id)
 
         if (linhasAfetadas >= 1) {
             resp.send();

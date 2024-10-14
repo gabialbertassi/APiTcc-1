@@ -1,12 +1,14 @@
 import * as db from '../repository/ClientesRepository.js';
 
-import  {Router} from "express";
-const endpoints = Router ();
+import { Router } from "express";
+import { autenticar } from '../utils/jwt.js';
+const endpoints = Router();
 
-endpoints.get('/cliente/', async (req, resp) => {
+endpoints.get('/cliente/', autenticar, async (req, resp) => {
     try {
-        let registros =await db.ConsultarCliente();
-        resp.send (registros);
+        let idUsuario = req.user.id;
+        let registros = await db.ConsultarCliente(idUsuario);
+        resp.send(registros);
 
     } catch (err) {
         resp.status(400).send({
@@ -17,12 +19,12 @@ endpoints.get('/cliente/', async (req, resp) => {
 
 })
 
-endpoints.get('/cliente/:id', async (req, resp) => {
+endpoints.get('/cliente/:id', autenticar , async (req, resp) => {
     try {
-        
-        let id= req.params.id;
-        let registros =await db.ConsultarClientePorId(id);
-        resp.send (registros[0]);
+
+        let id = req.params.id;
+        let registros = await db.ConsultarClientePorId(id);
+        resp.send(registros[0]);
 
     } catch (err) {
         resp.status(400).send({
@@ -33,10 +35,10 @@ endpoints.get('/cliente/:id', async (req, resp) => {
 
 })
 
-endpoints.post('/cliente/',async (req, resp) => {
+endpoints.post('/cliente/', autenticar, async (req, resp) => {
     try {
-        let cliente= req.body;
-        let id= await db.InserirCliente(cliente);
+        let cliente = req.body;
+        let id = await db.InserirCliente(cliente);
 
         resp.send({
             novoId: id
@@ -47,42 +49,42 @@ endpoints.post('/cliente/',async (req, resp) => {
         })
     }
 })
- 
-endpoints.put('/cliente/:id',async (req, resp) => {
+
+endpoints.put('/cliente/:id', autenticar, async (req, resp) => {
     try {
-   let id= req.params.id;
-        let cliente= req.body;
-let linhasAfetadas= await db.AlterarCliente(id,cliente);
-if(linhasAfetadas>=1){
-resp.send();
-}
-    else{resp.status(404).send({erro: 'nenhum registro encontrado'})}
+        let id = req.params.id;
+        let cliente = req.body;
+        let linhasAfetadas = await db.AlterarCliente(id, cliente);
+        if (linhasAfetadas >= 1) {
+            resp.send();
+        }
+        else { resp.status(404).send({ erro: 'nenhum registro encontrado' }) }
     } catch (err) {
         resp.status(400).send({
             erro: err.message
         })
     }
 })
- 
 
-endpoints.delete('/cliente/:id', async (req,resp) => {
 
-try{
-let id = req.params.id;
+endpoints.delete('/cliente/:id', autenticar, async (req, resp) => {
 
-let linhasAfetadas = await db.removercliente(id)
+    try {
+        let id = req.params.id;
 
-if(linhasAfetadas>=1){
-resp.send();
-}
-    else{resp.status(404).send({erro: 'nenhum registro encontrado'})}
+        let linhasAfetadas = await db.removercliente(id)
+
+        if (linhasAfetadas >= 1) {
+            resp.send();
+        }
+        
     } catch (err) {
         resp.status(400).send({
             erro: err.message
         })
 
 
-}
+    }
 
 
 })

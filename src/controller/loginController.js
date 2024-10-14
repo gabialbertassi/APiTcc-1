@@ -2,6 +2,8 @@ import * as db from '../repository/loginRepository.js';
 
 
 import  {Router} from "express";
+import { autenticar, gerarToken } from '../utils/jwt.js';
+
 const endpoints = Router ();
 
 
@@ -20,7 +22,7 @@ endpoints.post('/usuario/',async (req, resp) => {
     }
 })
 
-endpoints.post('/entrar/', async (req,resp) =>{
+endpoints.post('/entrar/',  async (req,resp) =>{
 
     try {
         let pessoa= req.body;
@@ -29,7 +31,12 @@ endpoints.post('/entrar/', async (req,resp) =>{
         if(usuario==null){
             resp.send({erro: "Usuário e/ou senha incorreto(s)"})
 
-        }else{resp.send(usuario)}
+        }else{
+            let token = gerarToken(usuario);
+            resp.send({
+                "token": token
+            })
+        }
 
        
     } catch (err) {
