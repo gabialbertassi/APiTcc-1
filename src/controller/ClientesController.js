@@ -55,7 +55,7 @@ endpoints.put('/cliente/:id', autenticar, async (req, resp) => {
         let id = req.params.id;
         let cliente = req.body;
         let linhasAfetadas = await db.AlterarCliente(id, cliente);
-        if (linhasAfetadas >= 1) {
+        if (linhasAfetadas <= 1) {
             resp.send();
         }
         else { resp.status(404).send({ erro: 'nenhum registro encontrado' }) }

@@ -16,7 +16,7 @@ return info.insertId;
 
 export async function ConsultarCliente(idUsuario){
 const comando = `
-select id_Cliente       id,
+select ID_Cliente       id,
         nome_cliente    nome,
         data_nascimento data_Nascimento,
         telefone        telefone,
@@ -64,13 +64,16 @@ export async function ConsultarClientePorId(id){
 export async function removercliente(id) {
     const comando =`
     DELETE FROM tb_cliente
-WHERE id_cliente = ?;
+WHERE ID_Cliente = ?;
     `
     let resposta = await con.query(comando , [id]);
     let info = resposta[0];
 
     return info.affectedrows;
 }
+
+
+
 
 export async function AlterarCliente(id,cliente){
 const comando = `

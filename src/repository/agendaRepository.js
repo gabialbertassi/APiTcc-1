@@ -35,7 +35,7 @@ return registros;
 }
 
 
-export async function Consultarhorario(id){
+export async function ConsultarhorarioPorId(id){
     const comando = `
     select id_agenda       id,
             data            data,
@@ -80,7 +80,7 @@ set data = ? ,
     id_pedido =?
     where id_agenda=?;` 
  
-    let resposta = await con.query (comando,[ new Date(horario.data) ,horario.hr_inicio, horario.hr_fim, horario.id_pedidos ,horario.Id_Usuario ])
+    let resposta = await con.query (comando,[ new Date(horario.data) ,horario.hr_inicio, horario.hr_fim, horario.id_pedidos ,horario.Id_Usuario, id ])
 
     let info = resposta [0];
     return info.affectedRows;

@@ -54,8 +54,6 @@ export async function InserirProduto(produto){
      const comando =`
      DELETE FROM tb_produtos 
      WHERE id_procedimento = ?
-     
-     
      `;
      let resposta= await con.query(comando,[id]);
      let info = resposta[0]

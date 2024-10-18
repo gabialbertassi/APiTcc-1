@@ -64,7 +64,7 @@ endpoints.delete('/produtos/:id', autenticar, async (req, resp) => {
         let linhasAfetadas = await db.removerProduto(id)
 
         if (linhasAfetadas >= 1) {
-            resp.send();
+            resp.send(200);
         }
         else { resp.status(404).send({ erro: 'nenhum registro encontrado' }) }
     } catch (err) {

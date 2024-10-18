@@ -63,15 +63,15 @@ WHERE id_pedido = ?;
 }
 
 
+
+
+
+
 /*
-
-a funcao de alterar sera mesmo necessario , uma vez que essa tabela é composta por id
-
-
 export async function Alterarpedido(id, cliente) {
     const comando = `
-    update tb_cliente    
-    set nome_cliente = ? ,
+    update tb_pedido  
+    set no ,
         data_nascimento =?,
         telefone = ?,
         cpf =?,

@@ -6,7 +6,7 @@ const endpoints = Router();
 endpoints.post('/pedidos/', autenticar, async (req, resp) => {
     try {
         let pedido= req.body;
-        let id = await db.InserirPedidos(pedido,);
+        let id = await db.InserirPedidos(pedido);
 
         resp.send({
             novoId: id

@@ -26,7 +26,7 @@ export async function validarUsuario(pessoa){
 
     `;
 
-    let registros = await con.query(comando, [pessoa.nome , pessoa.senha])
+    let registros = await con.query(comando, [pessoa.nm_usuario , pessoa.ds_senha])
   
     return registros[0][0]
 
