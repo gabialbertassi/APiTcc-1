@@ -33,6 +33,26 @@ export async function InserirProduto(produto, idUsuario){
 
     }
 
+    export async function ConsultarProdutos (id){
+      const comando =  `
+      select id_procedimento   id,
+      nm_procedimento    procedimento,
+      nm_profissional    profissional,
+      descricao          descrição,
+      preco              preço,
+      observacoes       obs
+      from tb_produtos
+      where id_usuario= ?
+      `;
+  
+      let resposta = await con.query (comando, [id]);
+   let registros = resposta [0];
+   return registros;
+      
+      
+  
+      }
+
     export async function ConsultarProdutoPorId(id){
         const comando = `
         select id_procedimento     id,

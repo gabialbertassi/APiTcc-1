@@ -42,7 +42,7 @@ endpoints.get('/produto/:id', autenticar, async (req, resp) => {
     try {
 
         let idUsuario = req.user.id;
-        let registros = await db.ConsultarProdutos(idUsuario);
+        let registros = await db.ConsultarProdutosPorID(idUsuario);
         resp.send(registros);
 
     } catch (err) {
