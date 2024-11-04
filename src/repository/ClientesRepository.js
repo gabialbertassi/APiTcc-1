@@ -1,11 +1,11 @@
 import con from "./connection.js";
 
-export async function InserirCliente(cliente){
+export async function InserirCliente(cliente,idUsuario){
 const comando =  `
 insert into tb_cliente (NOME_cliente , DATA_nascimento , TELEFONE, CPF, MEDIDAS, OBSERVACOES , E_MAIL, Id_Usuario)
                         values(?, ?, ?, ?, ?, ?, ?, ? )
                    `      ;
-let resposta = await con.query (comando,[cliente.NOME_cliente ,new Date(cliente.DATA_Nascimento) , cliente.telefone, cliente.cpf, cliente.medidas , cliente.observacoes, cliente.E_MAIL,cliente.Id_Usuario ])
+let resposta = await con.query (comando,[cliente.NOME_cliente ,new Date(cliente.DATA_Nascimento) , cliente.telefone, cliente.cpf, cliente.medidas , cliente.observacoes, cliente.E_MAIL, idUsuario ])
 let info = resposta[0];
 
 return info.insertId;
@@ -17,7 +17,7 @@ return info.insertId;
 export async function ConsultarCliente(idUsuario){
 const comando = `
 select ID_Cliente       id,
-NOME_cliente    nome,
+NOME_Cliente    nome,
 DATA_nascimento data_Nascimento,
 TELEFONE        telefone,
 CPF             cpf,
@@ -40,8 +40,8 @@ return registros;
 
 export async function ConsultarClientePorId(id){
     const comando = `
-    select id_Cliente       id,
-    NOME_cliente    nome,
+    select iD_Cliente       id,
+    NOME_Cliente    nome,
     DATA_nascimento data_Nascimento,
     TELEFONE        telefone,
     CPF             cpf,
@@ -78,7 +78,7 @@ WHERE ID_Cliente = ?;
 export async function AlterarCliente(id,cliente){
 const comando = `
 update tb_cliente    
-set NOME_cliente = ? ,
+set NOME_Cliente = ? ,
 DATA_nascimento =?,
 TELEFONE = ?,
 CPF =?,
@@ -87,7 +87,7 @@ OBSERVACOES =?,
     E_MAIL =?
     where id_cliente=?;` 
    console.log(cliente) 
-    let resposta = await con.query (comando, [cliente.nome_cliente,new Date(cliente.data_Nascimento), cliente.telefone , cliente.cpf, cliente.medidas , cliente.observacoes, cliente.E_Mail, id])
+    let resposta = await con.query (comando, [cliente.NOME_clientee,new Date(cliente.data_Nascimento), cliente.telefone , cliente.cpf, cliente.medidas , cliente.observacoes, cliente.E_Mail, id])
     let info = resposta [0];
     return info.affectedRows;
 

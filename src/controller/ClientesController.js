@@ -21,7 +21,7 @@ endpoints.get('/cliente/', autenticar, async (req, resp) => {
 
 endpoints.get('/cliente/:id', autenticar , async (req, resp) => {
     try {
-
+     
         let id = req.params.id;
         let registros = await db.ConsultarClientePorId(id);
         resp.send(registros[0]);
@@ -37,9 +37,10 @@ endpoints.get('/cliente/:id', autenticar , async (req, resp) => {
 
 endpoints.post('/cliente/', autenticar, async (req, resp) => {
     try {
+        
         let cliente = req.body;
-        let id = await db.InserirCliente(cliente);
-
+        let id = await db.InserirCliente(cliente, req.user.id);
+        
         resp.send({
             novoId: id
         })

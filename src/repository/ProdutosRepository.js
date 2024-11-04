@@ -1,12 +1,12 @@
 import con from "./connection.js";
 
 
-export async function InserirProduto(produto){
+export async function InserirProduto(produto, idUsuario){
     const comando =  `
     insert into tb_produtos (nm_procedimento , nm_profissional , descricao, preco, observacoes, id_usuario)
                             values(?, ?, ?, ?, ?,? )
                        `      ;
-    let resposta = await con.query (comando,[produto.nm_procedimento, produto.nm_profissional , produto.descricao,  produto.preco , produto.observacoes , produto.id_usuario])
+    let resposta = await con.query (comando,[produto.nm_procedimento, produto.nm_profissional , produto.descricao,  produto.preco , produto.observacoes , idUsuario])
     let info = resposta[0];
     
     return info.insertId;

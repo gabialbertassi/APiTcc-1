@@ -6,7 +6,7 @@ const endpoints = Router();
 endpoints.post('/produtos/', autenticar, async (req, resp) => {
     try {
         let produto = req.body;
-        let id = await db.InserirProduto(produto);
+        let id = await db.InserirProduto(produto, req.user.id);
 
         resp.send({
             novoId: id
@@ -38,6 +38,21 @@ endpoints.get('/produto/', autenticar, async (req, resp) => {
 })
 
 
+endpoints.get('/produto/:id', autenticar, async (req, resp) => {
+    try {
+
+        let idUsuario = req.user.id;
+        let registros = await db.ConsultarProdutos(idUsuario);
+        resp.send(registros);
+
+    } catch (err) {
+        resp.status(400).send({
+            erro: err.message
+        })
+    }
+
+
+})
 
 
 endpoints.put('/produtos/:id', autenticar, async (req, resp) => {
