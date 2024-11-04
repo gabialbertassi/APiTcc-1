@@ -33,7 +33,7 @@ export async function InserirProduto(produto, idUsuario){
 
     }
 
-    export async function ConsultarProdutos (id){
+    export async function ConsultarProdutosPorId (id){
       const comando =  `
       select id_procedimento   id,
       nm_procedimento    procedimento,
@@ -42,7 +42,7 @@ export async function InserirProduto(produto, idUsuario){
       preco              preço,
       observacoes       obs
       from tb_produtos
-      where id_usuario= ?
+      where id_procedimento= ?
       `;
   
       let resposta = await con.query (comando, [id]);
