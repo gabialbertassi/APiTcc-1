@@ -1,11 +1,11 @@
 import con from "./connection.js";
 
-export async function InserirPedidos(pedido) {
+export async function InserirPedidos(pedido, idUsuario) {
     const comando = `
 insert into tb_pedido (id_cliente, id_produto,qtd_produto, Id_Usuario)
                         values(?, ?, ?, ? )
                    `      ;
-    let resposta = await con.query(comando, [pedido.id_cliente, pedido.id_produto, pedido.qtd_produto, pedido.Id_Usuario])
+    let resposta = await con.query(comando, [pedido.id_cliente, pedido.id_produto, pedido.qtd_produto,idUsuario])
     let info = resposta[0];
 
     return info.insertId;
