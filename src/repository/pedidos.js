@@ -16,11 +16,20 @@ insert into tb_pedido (id_cliente, id_produto,qtd_produto, Id_Usuario)
 
 export async function ConsultarPedidos(idUsuario) {
     const comando = `
-select id_pedido       id,
-          id_produto     id_produto,
-        qtd_produto   quantidade
-    from tb_pedido
-    where id_usuario = ?
+    SELECT 
+    c.NOME_Cliente AS nome_cliente,
+    p.nm_procedimento AS nome_procedimento,
+    pe.id_pedido AS id_pedido,
+    pe.qtd_produto AS quantidade_pedido
+
+FROM 
+    QueenBeauty.tb_cliente AS c
+JOIN 
+    QueenBeauty.tb_pedido AS pe ON c.ID_Cliente = pe.id_cliente
+JOIN 
+    QueenBeauty.tb_produtos AS p ON pe.id_produto = p.Id_procedimento
+
+    where c.id_usuario=3;
     
 `;
     let resposta = await con.query(comando, [idUsuario]);
