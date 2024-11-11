@@ -5,7 +5,7 @@ const comando =  `
 insert into tb_cliente (NOME_cliente , DATA_nascimento , TELEFONE, CPF, MEDIDAS, OBSERVACOES , E_MAIL, Id_Usuario)
                         values(?, ?, ?, ?, ?, ?, ?, ? )
                    `      ;
-let resposta = await con.query (comando,[cliente.NOME_cliente ,new Date(cliente.DATA_Nascimento) , cliente.telefone, cliente.cpf, cliente.medidas , cliente.observacoes, cliente.E_MAIL, idUsuario ])
+let resposta = await con.query (comando,[cliente.NOME_cliente ,new Date(cliente.data_Nascimento) , cliente.telefone, cliente.cpf, cliente.medidas , cliente.observacoes, cliente.E_Mail, idUsuario ])
 let info = resposta[0];
 
 return info.insertId;
@@ -87,7 +87,7 @@ OBSERVACOES =?,
     E_MAIL =?
     where id_cliente=?;` 
    console.log(cliente) 
-    let resposta = await con.query (comando, [cliente.NOME_clientee,new Date(cliente.data_Nascimento), cliente.telefone , cliente.cpf, cliente.medidas , cliente.observacoes, cliente.E_Mail, id])
+    let resposta = await con.query (comando, [cliente.NOME_cliente,new Date(cliente.data_Nascimento), cliente.telefone , cliente.cpf, cliente.medidas , cliente.observacoes, cliente.E_Mail, id])
     let info = resposta [0];
     return info.affectedRows;
 

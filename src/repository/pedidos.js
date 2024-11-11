@@ -29,7 +29,7 @@ JOIN
 JOIN 
     QueenBeauty.tb_produtos AS p ON pe.id_produto = p.Id_procedimento
 
-    where c.id_usuario=3;
+    where c.id_usuario=?;
     
 `;
     let resposta = await con.query(comando, [idUsuario]);
